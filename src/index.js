@@ -1,7 +1,7 @@
 const http = require('http');
 const https = require('https');
 // (<title[^>]*>)[a-zA-Z0-9]*(<\/title[^>]*>)
-//(<(title*>)(.*?)(<\/\2))|(<(title[^>]*))
+//(<(title[^>]*>)(.*?)(<\/\2))|(<(title[^>]*))
 class Response {
 	constructor(data) {
 		this.data = data;
@@ -29,9 +29,21 @@ class Response {
 		}
 		return data;
 	}
-	//getID(id){
-	//	console.log(GetTagByIdUsingRegex(id,this.data))
-	//}
+	/**
+	 *
+	 * @param {string} tag
+	 * @param {string} id
+	 */
+	getClass(tag, className) {
+		let regex = new RegExp(
+			`(<((${tag})(?:[^class]*)(class="${className}"))(\n|\r|[^<])*(<\/\\3>))`
+		);
+		let match = regex.exec(this.data);
+		let info = {
+			fullMatch: match[0],
+		};
+		return info;
+	}
 }
 /**
  *
@@ -93,18 +105,4 @@ async function getHttps(url, options = { method: 'GET' }) {
 	});
 }
 
-async function f() {
-	let data = await get('https://www.google.com', {
-		method: 'GET',
-	});
-	console.log(data.json());
-}
-f();
-function GetTagByIdUsingRegex(id, html) {
-	return new RegExp(
-		'<[a-zA-Z]*[^>]*id[\\s]?=[\\s]?[\'"]' +
-			id +
-			'[\'"][\\s\\S]*?</[a-zA-Z]*>'
-	).exec(html);
-}
-//https://www.reddit.com/r/dankmemes/hot.json
+module.exports = get;
