@@ -6,7 +6,7 @@ async function f() {
     data = data.json();
     let memes=data.data.children
 	for (let i in memes) {
-		console.log(meme[i].data.url);
+		console.log(memes[i].data.url);
 	}
 }
 f();
