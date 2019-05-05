@@ -7,7 +7,7 @@ class Response {
 		this.data = data;
 	}
 	/**
-	 *
+	 * find a tag in the html (if any)
 	 * @param {string} tag
 	 */
 	getTag(tag) {
@@ -20,6 +20,10 @@ class Response {
 		};
 		return obj;
 	}
+	/**
+	 * parses json data (if its json)
+	 * @returns {{}}
+	 */
 	json() {
 		let data;
 		try {
@@ -61,12 +65,12 @@ async function get(url, options) {
 /**
  *
  * @param {string} url
- * @param {{method?:string}} options
+ * @param {{method?:string, headers?:{[header:string]:number|string|string[]|undefiled}}} options
  */
 async function getHttp(url, options = {}) {
 	return new Promise((res, rej) => {
 		if (!options.method) options.method = 'GET';
-		http.get(url, resp => {
+		http.get(url,options, resp => {
 			let data = '';
 			resp.on('data', chunk => {
 				data += chunk;
@@ -84,7 +88,7 @@ async function getHttp(url, options = {}) {
 /**
  *
  * @param {string} url
- * @param {{method?:string}} options
+ * @param {{method?:string, headers?:{[header:string]:number|string|string[]|undefined}}} options
  */
 async function getHttps(url, options = { method: 'GET' }) {
 	return new Promise((res, rej) => {
