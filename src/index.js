@@ -52,7 +52,7 @@ class Response {
 /**
  *
  * @param {string} url
- * @param {method:string} options
+ * @param {{method:string,headers?:{[header:string]:number|string|string[]|undefined}}} options
  * @returns {Response}
  */
 async function get(url, options) {
@@ -65,12 +65,12 @@ async function get(url, options) {
 /**
  *
  * @param {string} url
- * @param {{method?:string, headers?:{[header:string]:number|string|string[]|undefiled}}} options
+ * @param {{method?:string, headers?:{[header:string]:number|string|string[]|undefined}}} options
  */
 async function getHttp(url, options = {}) {
 	return new Promise((res, rej) => {
 		if (!options.method) options.method = 'GET';
-		http.get(url,options, resp => {
+		http.get(url, options, resp => {
 			let data = '';
 			resp.on('data', chunk => {
 				data += chunk;
