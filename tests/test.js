@@ -5,6 +5,7 @@ async function f() {
 	data = data.json();
 	let memes = data.data.children;
 	for (let i in memes) {
+		console.log(memes[i].data.url)
 		urls.set(memes[i].data.title, memes[i].data.url);
 	}
 	console.log(urls)
