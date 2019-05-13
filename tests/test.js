@@ -7,7 +7,7 @@ async function f() {
 	for (let i in memes) {
 		urls.set(memes[i].data.title, memes[i].data.url);
 	}
-	//console.log(urls)
+	console.log(urls)
 	return urls;
 }
 f();
